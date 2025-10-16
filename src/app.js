@@ -1,9 +1,12 @@
 import express from 'express';
-import pokemon from './routers/pokemon/pokemon.js';
+import routerPokemon from './routers/pokemon/pokemon.js';
+import routerUser from './routers/user/user.js';
+
 
 const app = express();
 
 app.use(express.json());
-app.use(pokemon);
+app.use(routerPokemon);
+app.use(routerUser)
 
 export default app;

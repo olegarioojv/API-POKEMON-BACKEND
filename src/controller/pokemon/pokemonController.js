@@ -1,14 +1,18 @@
 import express from 'express';
 import getOne from '../../services/pokemon/getPokemon.js';
 import create from '../../services/pokemon/createPokemon.js';
+import getAll from '../../services/pokemon/getPokemons.js';
+import destroyPokemon from '../../services/pokemon/destroyPokemon.js';
+import updatePokemon from '../../services/pokemon/updatePokemon.js';
+import createPokebolas from '../../services/pokebolas/createPokebolas.js';
 
-const routerPokemon = express.Router()
+const routerPokemon = express.Router();
 
 const getPokemon = async (req, res) => {
     try {
         const id = req.params.id;
 
-        if(!id) {
+        if (!id) {
             res.status(400);
             res.json({
                 message: "ID é obrigatório",
@@ -16,10 +20,10 @@ const getPokemon = async (req, res) => {
             return;
         }
 
-        const pokemon = await getOne(id)
+        const pokemon = await getOne(id);
 
-        if(!pokemon) {
-            res.status(404)
+        if (!pokemon) {
+            res.status(404);
             res.json({
                 message: "Pokemon não encontrado!!"
             });
@@ -32,53 +36,99 @@ const getPokemon = async (req, res) => {
 
     } catch (error) {
         res.status(500);
-        req.json({
+        res.json({
             message: "Ocorreu um erro",
         });
     }
 };
 
-    const getPokemons = async (req, res) => {
-        res.json({
-            message: "Pokemons All"
-        })
-    }
+const getPokemons = async (req, res) => {
 
-    const createPokemon = async (req, res) => {
-        try {
-            const {name, nature, tipo, sexo, level} = req.body
+    const pokemons = await getAll();
 
-            if(!name || !nature || !tipo || !sexo || !level) {
-                res.status(400)
-                res.json({
-                    message: "Nome, Nature, Tipo, Sexo e Level do pokemon são obrigatórios"
-                })
-                return
-            }
+    res.status(200);
+    res.json({
+        data: pokemons
+    });
+};
 
-            const createPokemon = await create(req.body)
+const createPokemon = async (req, res) => {
+    try {
+        const { name, nature, tipo, sexo, level } = req.body;
 
-            if(!createPokemon){
-                res.status(400).json({
-                    message: "Erro ao criar o pokemon"
-                })
-                return
-            }
-
-            res.status(201).json({
-                data: createPokemon
-            })
-
-        } catch (error) {
-            res.status(500)
-            req.json({
-                message: "Ocorreu um erro"
-            })
+        if (!name || !nature || !tipo || !sexo || !level) {
+            res.status(400);
+            res.json({
+                message: "Nome, Nature, Tipo, Sexo e Level do pokemon são obrigatórios"
+            });
+            return;
         }
+
+        const pokemon = await create(req.body);
+
+        let pokebolasCriadas;
+        if(req.body.Pokebolas){
+            pokebolasCriadas = await createPokebolas(req.body.Pokebola, pokemon.id);
+        }
+
+        res.status(201).json({
+            data: pokemon,
+            pokebolas: pokebolasCriadas
+        });
+
+    } catch (error) {
+        res.status(500);
+        res.json({
+            message: "Ocorreu um erro"
+        });
+    }
+};
+
+const destroy = async (req, res) => {
+    const id = req.params.id;
+
+    const pokemon = await destroyPokemon(id);
+
+    if (!pokemon) {
+        res.status(400);
+        res.json({
+            message: "Não foi possível deletar o pokemon"
+        });
+        return;
     }
 
-    export default {
-        getPokemon,
-        getPokemons,
-        createPokemon
+    res.status(200);
+    res.json({
+        message: "Pokemon deletado com sucesso",
+        pokemon
+    });
+};
+
+const update = async (req, res) => {
+    const data = req.body;
+    const id = req.params.id;
+
+    const pokemon = await updatePokemon(data, id);
+
+    if (!pokemon) {
+        res.status(400);
+        res.json({
+            message: "Não foi possível atualizar o pokemon"
+        });
+        return;
     }
+
+    res.status(200);
+    res.json({
+        message: "Pokemon atualizado com sucesso",
+        pokemon
+    });
+};
+
+export default {
+    getPokemon,
+    getPokemons,
+    createPokemon,
+    destroy,
+    update
+};

@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "projetopos",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -13,8 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sequelize/core": "^7.0.0-alpha.46",
     "@sequelize/mysql": "^7.0.0-alpha.46",
+    "bcrypt": "^6.0.0",
     "express": "^5.1.0"
   }
 }

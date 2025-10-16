@@ -1,5 +1,11 @@
 import sequelize from '../config/database.js';
 import Pokemon from './pokemon/Pokemon.js';
+import Pokebola from '../model/pokebolas/Pokebolas.js';
+import User from './user/User.js';
+
+
+Pokebola.hasMany(Pokemon)
+Pokemon.belongsTo(Pokebola)
 
 sequelize.sync({
     force: false,
@@ -10,5 +16,7 @@ sequelize.sync({
 
 
 export default {
-    Pokemon
+    Pokemon,
+    Pokebola,
+    User
 }
