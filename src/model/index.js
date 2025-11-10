@@ -4,8 +4,9 @@ import Pokebola from '../model/pokebolas/Pokebolas.js';
 import User from './user/User.js';
 
 
-Pokebola.hasMany(Pokemon)
-Pokemon.belongsTo(Pokebola)
+// A Pokemon can have many Pokebolas; each Pokebola belongs to a single Pokemon
+Pokemon.hasMany(Pokebola);
+Pokebola.belongsTo(Pokemon);
 
 sequelize.sync({
     force: false,

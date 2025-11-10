@@ -14,10 +14,16 @@
 					"name": "CREATE POKEMON",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "c4122c856aefdff61904252f8b54fb8d",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Pikachu\",\r\n    \"nature\": \"Lonely\",\r\n    \"tipo\": \"Eletrico\",\r\n    \"sexo\": \"M\",\r\n    \"level\": 100\r\n}",
+							"raw": "{\r\n  \"name\": \"AAAA\",\r\n  \"nature\": \"Lonely\",\r\n  \"tipo\": \"Eletrico\",\r\n  \"sexo\": \"M\",\r\n  \"level\": 100,\r\n  \"Pokebolas\": [\"Ultra Ball\", \"Master Ball\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -33,6 +39,43 @@
 							"port": "3000",
 							"path": [
 								"pokemon"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET POKEMONS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "c4122c856aefdff61904252f8b54fb8d",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/pokemons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pokemons"
 							]
 						}
 					},
@@ -57,6 +100,74 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "POST USER",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "639f4ac3ae035b4ff056ebd7c64a8256",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pedro\",\r\n    \"email\": \"pedro@gmail.com\",\r\n    \"password\": \"6546564\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AUTH",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "639f4ac3ae035b4ff056ebd7c64a8256",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"joao@gmail.com\",\r\n    \"password\": \"6546564\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -64,10 +175,16 @@
 			"name": "CREATE ACTOR",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "639f4ac3ae035b4ff056ebd7c64a8256",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Pedro11\",\r\n    \"city\": \"Extrema\",\r\n    \"uf\": \"MG\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Nicolau\",\r\n    \"city\": \"Extrema\",\r\n    \"uf\": \"MG\",\r\n    \"movies\": [\"a\", \"b\"]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -83,6 +200,43 @@
 					"port": "3000",
 					"path": [
 						"actor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ACTORS",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "03a025ce18c73ea871b958d166801882",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Pedro11\",\r\n    \"city\": \"Extrema\",\r\n    \"uf\": \"MG\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/actors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"actors"
 					]
 				}
 			},
@@ -106,14 +260,82 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/actor",
+					"raw": "http://localhost:3000/actors",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"actor"
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST USER",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "639f4ac3ae035b4ff056ebd7c64a8256",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Pedro\",\r\n    \"email\": \"pedro@gmail.com\",\r\n    \"password\": \"6546564\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AUTH",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "639f4ac3ae035b4ff056ebd7c64a8256",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"joao@gmail.com\",\r\n    \"password\": \"6546564\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth"
 					]
 				}
 			},

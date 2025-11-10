@@ -66,9 +66,18 @@ const createPokemon = async (req, res) => {
 
         const pokemon = await create(req.body);
 
+        if (!pokemon) {
+            res.status(500).json({ message: 'Erro ao criar pokemon' });
+            return;
+        }
+
+        console.log("Olaaaa")
+
         let pokebolasCriadas;
-        if(req.body.Pokebolas){
-            pokebolasCriadas = await createPokebolas(req.body.Pokebola, pokemon.id);
+        // expect body.pokebolas (array or single)
+        if (req.body.pokebolas) {
+             console.log("Olaaa 2222")
+            pokebolasCriadas = await createPokebolas(req.body.pokebolas, pokemon.id);
         }
 
         res.status(201).json({

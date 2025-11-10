@@ -1,23 +1,36 @@
 import Pokebola from "../../model/pokebolas/Pokebolas.js";
 
-const createPokebolas = async (Pokebolas, PokemonId) => {
+const createPokebolas = async (pokebolas, pokemonId) => {
+
+    console.log("Olá mundo")
+
     const response = {
         success: [],
         error: []
-    }
+    };
 
-    for (const pokebola of Pokebolas) {
-        const PokebolaCreated = await Pokebola.create({
-            nome: pokebola, 
-            PokemonId
-        });
+    if (!pokebolas) return response;
 
-        if (!PokebolaCreated) {
+    // const list = Array.isArray(pokebolas) ? pokebolas : [pokebolas];
+
+    for (const pokebola of pokebolas) {
+        console.log(pokebola)
+        try {
+            const PokebolaCreated = await Pokebola.create({
+                pokebola: pokebola,
+                pokemonId
+            });
+
+            if (!PokebolaCreated) {
+                response.error.push(pokebola);
+                continue;
+            }
+
+            response.success.push(PokebolaCreated);
+        } catch (error) {
+            console.error('createPokebolas error', error);
             response.error.push(pokebola);
-            continue;
         }
-
-        response.success.push(pokebola);
     }
 
     return response;
